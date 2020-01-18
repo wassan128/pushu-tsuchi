@@ -23,8 +23,7 @@ const PORT = process.env.PORT || 5000
 // init socket io
 const io = require('socket.io')(server)
 io.on('connection', () => {
-    playPushu()
-    io.emit('pushu', 'start')
+    console.log('socket.io connected')
 })
 
 server.listen(PORT, () => {
@@ -60,8 +59,8 @@ const tracking = async () => {
     stream.on('data', async () => {
         try {
             io.emit('pushu')
-
             playPushu()
+
             if (win !== null) {
                 win.focus()
             }

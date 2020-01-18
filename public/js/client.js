@@ -2,8 +2,9 @@
 
 const main = () => {
     const socket = io()
-    socket.on('pushu', msg => {
-        console.log('ﾌﾟｼｭ received')
+    socket.on('pushu', () => {
+        const beer = document.querySelector('img')
+        beer.classList.toggle('pushu')
     })
 }
 
