@@ -69,3 +69,21 @@ const tracking = async () => {
 }
 
 tracking()
+
+// init electron
+const electron = require('electron')
+const gadget = electron.app
+
+let win = null
+gadget.on('ready', () => {
+    win = new electron.BrowserWindow({ width: 400, height: 300 })
+    win.loadURL('http://localhost:5000')
+
+    win.on('closed', () => win = null)
+})
+gadget.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') {
+        gadget.quit()
+    }
+})
+
