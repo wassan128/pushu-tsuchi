@@ -23,6 +23,7 @@ const PORT = process.env.PORT || 5000
 // init socket io
 const io = require('socket.io')(server)
 io.on('connection', () => {
+    playPushu()
     io.emit('pushu', 'start')
 })
 
@@ -30,17 +31,15 @@ server.listen(PORT, () => {
     console.log(`listening... PORT: ${PORT}`)
 })
 
-// init se
-const { createAudio } = require('node-mp3-player')
-const Audio = createAudio()
-const playPushu = async () => {
-    const pushuSE = await Audio(path.join(__dirname, 'public/se/pushu.mp3'))
-    try {
-        await pushuSE.play()
-        await pushuSE.stop()
-    } catch (err) {
-        console.log(err)
-    }
+// init audio
+const player = require('play-sound')()
+const playPushu = () => {
+    const se = path.join(__dirname, 'public/se/pushu.mp3')
+    player.play(se, err => {
+        if (err) {
+            console.log('ERROR:', err)
+        }
+    })
 }
 
 // init twitter
@@ -61,7 +60,7 @@ const tracking = async () => {
         try {
             io.emit('pushu')
             console.log('ﾌﾟｼｭ detected:', data)
-            await playPushu()
+            playPushu()
         } catch (err) {
             console.log(err)
         }
