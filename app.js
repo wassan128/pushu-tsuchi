@@ -30,6 +30,19 @@ server.listen(PORT, () => {
     console.log(`listening... PORT: ${PORT}`)
 })
 
+// init se
+const { createAudio } = require('node-mp3-player')
+const Audio = createAudio()
+const playPushu = async () => {
+    const pushuSE = await Audio(path.join(__dirname, 'public/se/pushu.mp3'))
+    try {
+        await pushuSE.play()
+        await pushuSE.stop()
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 // init twitter
 const Twitter = require('twitter')
 
@@ -40,7 +53,7 @@ const client = new Twitter({
     access_token_secret: process.env.ACCESS_TOKEN_SECRET,
 })
 
-const main = async () => {
+const tracking = async () => {
     console.log('tweet tracking')
     const target = {'track': 'ﾌﾟｼｭ🍺'}
     const stream = await client.stream('statuses/filter', target)
@@ -48,10 +61,11 @@ const main = async () => {
         try {
             io.emit('pushu')
             console.log('ﾌﾟｼｭ detected:', data)
+            await playPushu()
         } catch (err) {
             console.log(err)
         }
     })
 }
 
-main()
+tracking()

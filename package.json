@@ -21,7 +21,9 @@
   "homepage": "https://github.com/wassan128/pushu-tsuchi#readme",
   "devDependencies": {
     "dotenv": "^8.2.0",
+    "electron": "^7.1.9",
     "express": "^4.17.1",
+    "node-mp3-player": "^1.0.3",
     "pug": "^2.0.4",
     "socket.io": "^2.3.0",
     "twitter": "^1.7.1"
