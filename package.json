@@ -1,0 +1,26 @@
+{
+  "name": "pushu-tsuchi",
+  "version": "1.0.0",
+  "description": "ﾌﾟｼｭ🍺",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wassan128/pushu-tsuchi.git"
+  },
+  "keywords": [
+    "ﾌﾟｼｭ🍺"
+  ],
+  "author": "wassan128",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wassan128/pushu-tsuchi/issues"
+  },
+  "homepage": "https://github.com/wassan128/pushu-tsuchi#readme",
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "twitter": "^1.7.1"
+  }
+}
