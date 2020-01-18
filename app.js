@@ -53,21 +53,24 @@ const client = new Twitter({
 })
 
 const tracking = async () => {
-    console.log('tweet tracking')
+    console.log('start tweet tracking...')
+
     const target = {'track': 'ﾌﾟｼｭ🍺'}
     const stream = await client.stream('statuses/filter', target)
-    stream.on('data', async data => {
+    stream.on('data', async () => {
         try {
             io.emit('pushu')
-            console.log('ﾌﾟｼｭ detected:', data)
+
             playPushu()
+            if (win !== null) {
+                win.focus()
+            }
         } catch (err) {
             console.log(err)
         }
     })
 }
 
-tracking()
 
 // init electron
 const electron = require('electron')
@@ -75,10 +78,17 @@ const gadget = electron.app
 
 let win = null
 gadget.on('ready', () => {
-    win = new electron.BrowserWindow({ width: 400, height: 300 })
+    win = new electron.BrowserWindow({
+        width: 500,
+        height: 500,
+        transparent: true,
+        frame: false,
+        toolbar: false
+    })
     win.loadURL('http://localhost:5000')
-
     win.on('closed', () => win = null)
+
+    tracking()
 })
 gadget.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
